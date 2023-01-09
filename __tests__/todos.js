@@ -1,6 +1,3 @@
-/* eslint-disable comma-dangle */
-/* eslint-disable semi */
-/* eslint-disable quotes */
 const request = require("supertest");
 
 const db = require("../models/index");
@@ -71,21 +68,21 @@ describe("Todo Application", function () {
     const parsedResponse = JSON.parse(response.text);
 
     expect(parsedResponse.length).toBe(4);
-    expect(parsedResponse[3].title).toBe("Buy ps3");
+    expect(parsedResponse[3]["title"]).toBe("Buy ps3");
   });
 
   test("Deletes a todo with the given ID if it exists and sends a boolean response", async () => {
     // FILL IN YOUR CODE HERE
     const response = await agent.post("/todos").send({
-      title: "Go to market",
+      title: "Buy milk",
       dueDate: new Date().toISOString(),
       completed: false,
     });
     const parsedResponse = JSON.parse(response.text);
     const todoID = parsedResponse.id;
-
-    const deleteTodoResponse = await agent.delete(`/todos/${todoID}`).send();
-    const parsedDeleteResponse = JSON.parse(deleteTodoResponse.text);
-    expect(parsedDeleteResponse).toBe(true);
+    const deletedele = await agent
+      .delete(`/todos/${todoID}`)
+      .send();
+    expect(deletedele.text).toBe("true")
   });
 });
